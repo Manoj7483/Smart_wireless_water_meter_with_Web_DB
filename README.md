@@ -1,33 +1,113 @@
-# 🚰 Smart Wireless Water Meter with Web DB
+# 🚰 Smart Wireless Water Meter with Web Dashboard
 
-A **Smart Wireless Water Meter** that monitors water consumption, ensures water quality, and enables real-time remote control via a **web-based database [ThingSpeak IoT platform](https://thingspeak.mathworks.com/channels/2819273)**. This IoT-based system optimizes water usage, prevents wastage, and provides real-time alerts.
+A **Smart IoT-based Water Metering System** that enables real-time monitoring of water usage, ensures water quality, and supports automated pump control. Built using the **ESP32** and **Arduino UNO**, and integrated with the **[ThingSpeak IoT platform](https://thingspeak.mathworks.com/channels/2819273)**, this system enables remote access, live data visualization, and intelligent automation for water conservation.
+
+![Banner](Images/Banner.jpg)
 
 ---
 
-## 📌 Features
-- 📡 **IoT-Based Wireless Monitoring** (ESP32-based)
-- 📊 **Real-Time Data Visualization** on **ThingSpeak**
-- 🌊 **Water Flow Tracking** (FS400 Sensor)
-- 💧 **Water Quality Monitoring** (TDS Sensor)
-- 📢 **Automated Pump Control** (Relay System)
-- 🛠 **Remote Access & Alerts** via a web-based dashboard
+## 🎯 Project Objectives
+
+- Optimize water consumption through **smart metering**
+- Monitor **flow rate**, **pH**, **TDS**, and **tank levels**
+- Enable **automated water pump control**
+- Provide **alerts and visualizations** via a web dashboard
+
+---
+
+## 📦 Features
+
+- 📡 **Wireless Monitoring** using ESP32 & Wi-Fi
+- 🌐 **ThingSpeak Dashboard** for real-time IoT analytics
+- 🌊 **Flow Rate Measurement** with flow sensor
+- 💧 **Water Quality Detection** via TDS & pH sensors
+- 🔁 **Automated Pump Control** with Relay Module
+- 🖥 **LCD Display** for local data output
+- 🛠 **Reliable Dual MCU Setup** using ESP32 + Arduino UNO
 
 ---
 
 ## 🛠️ Tech Stack
-| Component                      | Technology Used            |
-|--------------------------------|----------------------------|
-| **Microcontroller**            | ESP32                      |
-| **Water Flow Sensor**          | FS400                      |
-| **Water Quality Sensor**       | TDS Sensor                 |
-| **Tank Level Sensor**          | Ultrasonic Sensor          |
-| **Communication**              | Wi-Fi (ESP32)              |
-| **Cloud Platform**             | ThingSpeak                 |
-| **Software**                   | Arduino IDE, Embedded C    |
+
+| Component              | Description / Role                     |
+|------------------------|----------------------------------------|
+| **ESP32**              | Main microcontroller with Wi-Fi       |
+| **Arduino UNO**        | Secondary controller for sensor interfacing |
+| **pH Sensor**          | Measures water pH level               |
+| **pH Amplifier**       | Amplifies pH sensor signal            |
+| **TDS Module**         | Monitors total dissolved solids       |
+| **Flow Rate Sensor**   | Measures water flow rate              |
+| **Relay Module**       | Switches water pump on/off            |
+| **Water Pump**         | Controls water supply                 |
+| **LCD 16x2 Display**   | Displays real-time readings locally   |
+| **Flyrobo**            | Supplier of components                |
+| **Software**           | Arduino IDE, Embedded C               |
+| **Cloud Platform**     | ThingSpeak IoT Platform               |
 
 ---
 
-## 👨‍💻 Installation
+## 🧰 Prerequisites
+
+- ESP32 Development Board
+- Arduino UNO
+- Flow Sensor
+- TDS Sensor
+- pH Sensor with Amplifier
+- Relay Module
+- Water Pump
+- LCD 16x2 Display
+- Jumper Wires, Breadboard, Power Supply
+- Arduino IDE + ThingSpeak Account
+
+---
+
+## ⚙️ Hardware Setup
+
+![Schematic](Images/Schematic.png)
+
+1. Connect all sensors to Arduino UNO and ESP32 accordingly.
+2. Ensure correct voltage levels and power supply.
+
+---
+
+## 💻 Firmware Installation
+
+1. Install **Arduino IDE** and add board support for ESP32.
+2. Install libraries:
+   ```cpp
+   #include <WiFi.h>
+   #include <ThingSpeak.h>
+   #include <ArduinoJson.h>
+3. Upload the respective firmware to:
+   - ESP32: for Wi-Fi and ThingSpeak communication
+   - Arduino UNO: for reading and preprocessing sensor data
+4. Configure:
+   - Wi-Fi credentials
+   - ThingSpeak channel & API keys
+
+---
+
+## 🌐 ThingSpeak Setup
+
+1. Create a new **[ThingSpeak Channel](https://thingspeak.mathworks.com/)**
+2. Add the following fields:
+   - Flow Rate
+   - TDS Level
+   - pH Level
+3. Copy the Write API Key and use it in your ESP32 code.
+
+---
+
+## 🚀 System Workflow
+1. The sensors gather real-time data via Arduino UNO and ESP32.
+2. Data is sent to ESP32, which uploads it to ThingSpeak.
+3. ThingSpeak displays data using dynamic graphs.
+4. The Relay triggers the pump based on sensor thresholds.
+5. The LCD displays key metrics locally for manual monitoring.
+
+---
+
+## 📂 Repository Setup
 
 1. Clone this repository:
    ```bash
@@ -41,42 +121,6 @@ A **Smart Wireless Water Meter** that monitors water consumption, ensures water 
 
 ---
 
-## 📜 Installation Guide
-
-### 1️⃣ Prerequisites
-- ESP32 Microcontroller
-- Sensors (FS400, TDS, Ultrasonic)
-- Relay module for pump control
-- **Arduino IDE** for firmware
-- **ThingSpeak** account for IoT dashboard
-
-### 2️⃣ Setup Hardware
-1. Connect ESP32 with sensors:
-   - **FS400 Flow Sensor** → Measures water flow
-   - **TDS Sensor** → Checks water quality
-   - **Ultrasonic Sensor** → Monitors water level
-   - **Relay Module** → Controls motor/pump
-2. Ensure correct wiring and power connections.
-
-### 3️⃣ Firmware Setup
-1. Install **Arduino IDE** and add the **ESP32 board package**.
-2. Download required libraries:
-   ```sh
-   ArduinoJson, WiFi, ThingSpeak
-3. Flash ESP32 with the provided Arduino sketch.
-4. Configure Wi-Fi credentials and ThingSpeak API key.
-
-### 4️⃣ Web Dashboard (ThingSpeak)
-1. Create a **ThingSpeak Channel**.
-2. Set up **fields**:
-    - **Flow Rate**
-    - **Water Quality (TDS)**
-    - **Tank Level**
-    - **Pump Status**
-3. Integrate **API keys** in the ESP32 code.
-
----
-
 ## Software Requirement:
 - [Arduino IDE](https://www.arduino.cc/)
 > Arduino IDE used to upload programming in ESP32 Board with required library.
@@ -85,12 +129,33 @@ A **Smart Wireless Water Meter** that monitors water consumption, ensures water 
 
 ---
 
-## 🚀 Usage
-1. Power on the **ESP32**.
-2. Sensors collect **flow rate, TDS, and water levels**.
-3. Data is sent to **ThingSpeak** for real-time monitoring.
-4. The system **automatically controls** the pump.
-5. Alerts trigger when **quality or water levels** are critical.
+## 📈 Results
+
+### 💧 Flow Rate
+Real-time flow rate monitoring using FS400 sensor.
+
+![Flow Rate Result](Images/water%20flow%20result.png)
+
+### 🌫 TDS (Water Quality)
+TDS module captures Total Dissolved Solids in water and sends values to ThingSpeak.
+
+![TDS Result](Images/Turbidity%20result.png)
+
+### 🧪 pH Level
+The pH sensor with amplifier circuit helps determine the acidity or alkalinity of water.
+
+![pH Result](Images/PH%20result.png)
+
+### 🌐 ThingSpeak Dashboard
+Live analytics with charts for all monitored parameters.
+
+![ThingSpeak Channel](Images/thingspeak%20channel.png)
+
+### 🧱 Working Prototype
+Physical setup of the smart water metering system using ESP32, Arduino UNO, and sensors.
+
+![Model 1](Images/Model.jpg)
+![Model 2](Images/Model1.jpg)
 
 ---
 
@@ -103,3 +168,26 @@ A **Smart Wireless Water Meter** that monitors water consumption, ensures water 
 - [K SANTOSH](https://www.linkedin.com/in/k-santosh-102a73310/)
 - [MANOJ KUMAR C S](https://www.linkedin.com/in/manoj-kumar-c-s-a981a0254/)
 - [SANDEEPKUMAR S](https://www.linkedin.com/in/sandeepku-s/)
+
+---
+
+## 📁 Folder Structure
+
+Here is an overview of the project structure:
+
+```bash
+Smart_wireless_water_meter_with_Web_DB/
+│
+├── Images/
+│   └── ...
+│
+├── Reports/
+│   └── ...
+│
+├── Paper/
+│   └── ...
+│
+├── Arduino_Code/
+├── Esp32_Code/ 
+└── README.md
+```
